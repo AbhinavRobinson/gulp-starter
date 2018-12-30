@@ -29,36 +29,36 @@ gulp.task('sync',function(){
 
 gulp.task('sass',function(){
     let sassInit = function(){
-        return gulp.src('app/scss/*.scss')
+        return gulp.src('src/scss/*.scss')
         .pipe(sass().on('error',sass.logError))
-        .pipe(gulp.dest('src/css'));
+        .pipe(gulp.dest('app/css'));
     }
-    gulp.watch('app/scss/*.scss',sassInit);
+    gulp.watch('src/scss/*.scss',sassInit);
 });
 
 gulp.task('minify', function () {
     let minifyInit = function(){
-        return gulp.src(["src/css/*.css","!src/css/*.min.css"])
+        return gulp.src(["app/css/*.css","!app/css/*.min.css"])
             .pipe(cleanCSS())
             .pipe(rename(
                 {
                     suffix: '.min'
                 }
             ))
-            .pipe(gulp.dest('src/css'));
+            .pipe(gulp.dest('app/css'));
     }
-    gulp.watch("src/css/*.css").on('change', minifyInit);
+    gulp.watch("app/css/*.css").on('change', minifyInit);
 });
 
 gulp.task('prefixer',function(){
     let prefixerInit = function(){
-        return gulp.src('src/css/*.css')
+        return gulp.src(['app/css/*.css', "!app/css/*.min.css"])
         .pipe(autoprefixer({
             browsers:AUTOPREFIXER_BROWSERS,
             cascade:false
         }))
-        .pipe(gulp.dest('src/css'));
+        .pipe(gulp.dest('app/css'));
     };
-    gulp.watch("src/css/*.css").on('change', prefixerInit);
+    gulp.watch("app/css/*.css").on('change', prefixerInit);
 });
 
