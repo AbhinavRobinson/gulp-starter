@@ -1,5 +1,6 @@
 body{
-    background-color: lighten($color: #00f, $amount: 0.7)
+    background-color: lighten($color: #00f, $amount: 0.7);
+    height:100px;
 }
 
 ::placeholder{

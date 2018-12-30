@@ -62,3 +62,8 @@ gulp.task('prefixer',function(){
     gulp.watch("app/css/*.css").on('change', prefixerInit);
 });
 
+gulp.task('styles',
+    gulp.series('sass',
+                'prefixer'));
+
+gulp.task('default',gulp.parallel('sync','styles','minify'));
