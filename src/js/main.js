@@ -7,7 +7,5 @@ class Car{
         console.log(this.id);
     }
 }
-
-
 let car = new Car(20);
 car.start();

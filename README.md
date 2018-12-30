@@ -3,7 +3,7 @@
   
  ```npm install```
  
-```npx gulp```
+```npm start```
  
  ## Update
  Now also include ES6 transpilation
