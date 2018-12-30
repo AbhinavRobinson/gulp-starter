@@ -64,18 +64,27 @@ gulp.task('prefixer',function(){
     gulp.watch("app/css/*.css").on('change', prefixerInit);
 });
 
-gulp.task('scripts',function(){
+gulp.task('babel',function(){
     let babelInit = function(){
         return gulp.src("src/js/*.js")
             .pipe(babel({ presets: ['@babel/env']}))
-           .pipe(uglify())
-           .pipe(rename({
-               suffix:'.min',
-           }))
-           .pipe(gulp.dest('app/js'));
+            .pipe(gulp.dest('app/js'));
     }
     gulp.watch("src/js/*.js").on('change',babelInit); 
 });
+
+gulp.task('uglify',function(){
+    let uglifyInit = function(){
+        return gulp.src("app/js/*.js") 
+        .pipe(uglify())
+        .pipe(rename({
+            suffix: '.min',
+        }))
+        .pipe(gulp.dest('app/js'));
+    }
+});
+
+gulp.task('scripts',gulp.series('babel','uglify'));
 
 gulp.task('styles',
     gulp.series('sass',

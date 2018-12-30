@@ -8,5 +8,6 @@ class Car{
     }
 }
 
-let car = new Car(2);
+
+let car = new Car(20);
 car.start();
