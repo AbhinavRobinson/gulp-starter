@@ -6,6 +6,7 @@ let rename = require('gulp-rename');
 let autoprefixer = require('gulp-autoprefixer');
 let babel = require('gulp-babel');
 let uglify = require('gulp-uglify');
+let plumber = require('gulp-plumber');
 
 const AUTOPREFIXER_BROWSERS = [
     'last 2 versions',
@@ -24,7 +25,8 @@ gulp.task('sync',function(){
     browserSync.init({
         server:{
             baseDir:'./',
-        }
+        },
+        ghostMode:false
     });
     gulp.watch(["**/*.html","**/*.js","**/*.css"]).on('change',browserSync.reload);
 });
@@ -67,6 +69,7 @@ gulp.task('prefixer',function(){
 gulp.task('babel',function(){
     let babelInit = function(){
         return gulp.src("src/js/*.js")
+            .pipe(plumber())
             .pipe(babel({ presets: ['@babel/env']}))
             .pipe(gulp.dest('app/js'));
     }
@@ -84,7 +87,7 @@ gulp.task('uglify',function(){
     }
 });
 
-gulp.task('scripts',gulp.series('babel','uglify'));
+gulp.task('scripts',gulp.parallel('babel','uglify'));
 
 gulp.task('styles',
     gulp.series('sass',
