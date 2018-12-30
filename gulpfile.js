@@ -3,7 +3,9 @@ let browserSync = require('browser-sync');
 let sass = require('gulp-sass');
 let cleanCSS = require('gulp-clean-css');
 let rename = require('gulp-rename');
-let autoprefixer = require('gulp-autoprefixer')
+let autoprefixer = require('gulp-autoprefixer');
+let babel = require('gulp-babel');
+let uglify = require('gulp-uglify');
 
 const AUTOPREFIXER_BROWSERS = [
     'last 2 versions',
@@ -62,8 +64,21 @@ gulp.task('prefixer',function(){
     gulp.watch("app/css/*.css").on('change', prefixerInit);
 });
 
+gulp.task('scripts',function(){
+    let babelInit = function(){
+        return gulp.src("src/js/*.js")
+            .pipe(babel({ presets: ['@babel/env']}))
+           .pipe(uglify())
+           .pipe(rename({
+               suffix:'.min',
+           }))
+           .pipe(gulp.dest('app/js'));
+    }
+    gulp.watch("src/js/*.js").on('change',babelInit); 
+});
+
 gulp.task('styles',
     gulp.series('sass',
                 'prefixer'));
 
-gulp.task('default',gulp.parallel('sync','styles','minify'));
+gulp.task('default',gulp.parallel('sync','styles','minify','scripts'));
