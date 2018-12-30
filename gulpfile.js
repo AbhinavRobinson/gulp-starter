@@ -3,6 +3,20 @@ let browserSync = require('browser-sync');
 let sass = require('gulp-sass');
 let cleanCSS = require('gulp-clean-css');
 let rename = require('gulp-rename');
+let autoprefixer = require('gulp-autoprefixer')
+
+const AUTOPREFIXER_BROWSERS = [
+    'last 2 versions',
+    'ie >= 10',
+    'ie_mob >= 10',
+    'ff >= 30',
+    'chrome >= 34',
+    'safari >= 7',
+    'opera >= 23',
+    'ios >= 7',
+    'android >= 4.4',
+    'bb >= 10',
+];
 
 gulp.task('sync',function(){
     browserSync.init({
@@ -35,3 +49,16 @@ gulp.task('minify', function () {
     }
     gulp.watch("src/css/*.css").on('change', minifyInit);
 });
+
+gulp.task('prefixer',function(){
+    let prefixerInit = function(){
+        return gulp.src('src/css/*.css')
+        .pipe(autoprefixer({
+            browsers:AUTOPREFIXER_BROWSERS,
+            cascade:false
+        }))
+        .pipe(gulp.dest('src/css'));
+    };
+    gulp.watch("src/css/*.css").on('change', prefixerInit);
+});
+
