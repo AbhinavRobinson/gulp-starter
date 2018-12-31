@@ -1,5 +1,5 @@
   # gulp-starter
- Live reloading along with SASS compilation and css minification.
+ Live reloading along with SASS compilation and CSS minification.
   
  ```npm install```
  

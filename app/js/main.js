@@ -28,3 +28,11 @@ function () {
 
 var car = new Car(20);
 car.start();
+var promise = new Promise(function (resolve, reject) {
+  setTimeout(reject, 2000, 'promise');
+});
+promise.then(function (value) {
+  return console.log('fulfilled ' + value);
+}, function (error) {
+  return console.error('rejected ' + error);
+});

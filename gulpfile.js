@@ -78,13 +78,14 @@ gulp.task('babel',function(){
 
 gulp.task('uglify',function(){
     let uglifyInit = function(){
-        return gulp.src("app/js/*.js") 
+        return gulp.src(["app/js/*.js", "!app/js/*.min.js"]) 
         .pipe(uglify())
         .pipe(rename({
             suffix: '.min',
         }))
         .pipe(gulp.dest('app/js'));
     }
+    gulp.watch(["app/js/*.js","!app/js/*.min.js"]).on('change', uglifyInit); 
 });
 
 gulp.task('scripts',gulp.parallel('babel','uglify'));
