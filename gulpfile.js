@@ -94,4 +94,4 @@ gulp.task('styles',
     gulp.series('sass',
                 'prefixer'));
 
-gulp.task('default',gulp.parallel('sync','styles','minify','scripts'));
+gulp.task('default',gulp.parallel('sync','styles','minify','prefixer','scripts'));
