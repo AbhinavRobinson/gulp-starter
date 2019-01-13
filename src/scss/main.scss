@@ -1,3 +1,27 @@
+$colors:(
+    'primary':#000,
+    'accent':#fff
+);
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700');
+
+@function color($val){
+    @return map-get($map: $colors, $key: $val);
+}
+
+*{
+    padding:0;
+    margin:0;
+}
+
+@mixin query($point) {
+    @if $point == tablet-potrait{
+        @media (min-width: 768px) and (max-width: 1024px) {@content;}
+    }    
+    @if $point == tablet-landscape{
+       @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {}
+    }
+}
+
 body{
     background-color: lighten($color: #00f, $amount: 0.7);
     height:100px;
