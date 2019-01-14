@@ -71,6 +71,9 @@ gulp.task('babel',function(){
         return gulp.src("src/js/*.js")
             .pipe(plumber())
             .pipe(babel({ presets: ['@babel/env']}))
+            .pipe(rename({
+                suffix: '.babel',
+            }))
             .pipe(gulp.dest('app/js'));
     }
     gulp.watch("src/js/*.js").on('change',babelInit); 
@@ -79,13 +82,14 @@ gulp.task('babel',function(){
 gulp.task('uglify',function(){
     let uglifyInit = function(){
         return gulp.src(["app/js/*.js", "!app/js/*.min.js"]) 
+        .pipe(plumber())
         .pipe(uglify())
         .pipe(rename({
             suffix: '.min',
         }))
         .pipe(gulp.dest('app/js'));
     }
-    gulp.watch(["app/js/*.js","!app/js/*.min.js"]).on('change', uglifyInit); 
+    gulp.watch(["app/js/*.babel.js","!app/js/*.min.js"]).on('change', uglifyInit); 
 });
 
 gulp.task('scripts',gulp.parallel('babel','uglify'));

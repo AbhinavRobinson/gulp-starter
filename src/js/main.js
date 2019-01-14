@@ -8,15 +8,16 @@ class Car{
     }
 }
 let car = new Car(20);
+
 car.start();
 
-// let promise = new Promise(
-//     function(resolve,reject){
-//         setTimeout(reject,2000,'promise');
-//     }
-// );
+let promise = new Promise(
+    function(resolve,reject){
+        setTimeout(reject,2000,'promise');
+    }
+);
 
-// promise.then(
-//     value => console.log('fulfilled '+ value),
-//     error => console.error('rejected ' + error)
-// );
+promise.then(
+    value => console.log('fulfilled '+ value),
+    error => console.error('rejected ' + error)
+);
