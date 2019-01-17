@@ -1,23 +1,5 @@
-class Car{
-    constructor(id){
-        this.id=id;
-    }
-    start(){
-        console.log(this);
-        console.log(this.id);
-    }
-}
-let car = new Car(20);
+var script = document.createElement('script');
+script.src = './jquery-3.3.1.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
 
-car.start();
-
-let promise = new Promise(
-    function(resolve,reject){
-        setTimeout(reject,2000,'promise');
-    }
-);
-
-promise.then(
-    value => console.log('fulfilled '+ value),
-    error => console.error('rejected ' + error)
-);
